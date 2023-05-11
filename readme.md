@@ -25,3 +25,5 @@ A system that has the following:
 ## API Documentation
 - [Swagger yaml file](https://github.com/emad-eldeen/hospital-appointments-booking/blob/master/swagger/openapi3_0.yaml)
 - A generated HTML page of the documentation could be find [here](https://raw.githack.com/emad-eldeen/hospital-appointments-booking/master/swagger/index.html)
+
+![snapshot from swagger](/screenshots/swagger.png?raw=true)
