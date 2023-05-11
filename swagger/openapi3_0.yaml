@@ -1,0 +1,146 @@
+openapi: 3.0.3
+info:
+  title: Hospital Appointments Booking
+  description: |-
+    This is REST API based on the OpenAPI 3.0 specification.
+  version: 1.0.11
+paths: 
+  /doctors:
+    post:
+      tags:
+        - Doctors
+      summary: Add a new doctor
+      description: Add a new doctor
+      operationId: addPet
+      requestBody:
+        description: Create a new doctor
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Doctor'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Doctor'
+        '405':
+          description: Invalid input
+    get:
+      tags:
+        - Doctors
+      summary: List all doctors 
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Doctor'
+  /bookings:
+    get:
+      summary: List all bookings for a specific doctor 
+      tags: 
+        - Doctors
+      parameters: 
+        - name: doc
+          description: the name of the doctor
+          in: query
+          required: true
+          schema:
+            type: string 
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Booking'
+  /appointments:
+    get:
+      summary: List all doctors' appointments
+      tags:
+        - Appointments
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Appointment'
+    post:
+      summary: Create a new appointment
+      tags:
+        - Appointments
+      requestBody: 
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appointment'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+  /appointments/{appointmentId}:
+    delete:
+      summary: Delete an appointment
+      tags:
+        - Appointments
+      parameters:
+        - name: appointmentId
+          in: path
+          required: true
+          schema: 
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+components:
+  schemas:
+    Doctor:
+      type: object
+      properties: 
+        doctorName:
+          type: string
+      required:
+        - doctorName
+    Booking:
+      type: object
+      properties:
+        id:
+          type: number
+        booked:
+          type: boolean
+        avialableTime:
+          type: string
+          format: date
+    Appointment:
+      type: object
+      properties:
+        id:
+          type: number
+        patient:
+          type: string
+          description: the name of the patient
+        doctor:
+          type: string
+        date:
+          type: string
+          format: date
+
